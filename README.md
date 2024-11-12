@@ -1,7 +1,8 @@
 # DSA_beginners
 
-Algorithms and Data Structures for Beginners - Neetcode.io
-Author - Delta God
+<h1>Algorithms and Data Structures for Beginners - Neetcode.io
+Author - Delta God</h1>
+<br>
 <br>
 Git Clone - git clone (-links)
 <br>
