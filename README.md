@@ -3,7 +3,7 @@
 Algorithms and Data Structures for Beginners - Neetcode.io
 Author - Delta God
 <br>
-<h1 style="color:blue;">Git Clone - git clone (-links)</h1> 
+Git Clone - git clone (-links)
 <br>
 Git Status - git status
 <br>
@@ -13,3 +13,5 @@ Git commit -  git commit -m "some message"
 <br>
 Git Push - git push origin main
 <br>
+
+
