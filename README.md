@@ -3,7 +3,7 @@
 Algorithms and Data Structures for Beginners - Neetcode.io
 Author - Delta God
 <br>
-<color = red>Git Clone - git clone (-links)</color> 
+<h1 style="color:blue;">Git Clone - git clone (-links)</h1> 
 <br>
 Git Status - git status
 <br>
