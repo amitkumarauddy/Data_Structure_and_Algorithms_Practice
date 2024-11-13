@@ -27,7 +27,7 @@ Constraints:
 nums is sorted in non-decreasing order.
 */
 
-#include<stdio.h>
+
 
 #include <stdio.h>
 
