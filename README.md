@@ -14,5 +14,6 @@ Git commit -  git commit -m "some message"
 <br>
 Git Push - git push origin main
 <br>
-
+Git add a Repo - mkdir (name) - cd (name) - git init
+<br>
 
