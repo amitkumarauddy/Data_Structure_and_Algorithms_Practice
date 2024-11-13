@@ -27,6 +27,21 @@ Constraints:
 nums is sorted in non-decreasing order.
 */
 
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question('Enter the elements of the array (sorted in non-decreasing order) separated by commas: ', (input) => {
+    const nums = input.split(',').map(Number);
+    const k = removeDuplicates(nums);
+    console.log("Number of unique elements:", k);
+    console.log("Array with unique elements:", nums.slice(0, k).join(', '));
+    rl.close();
+});
+
 function removeDuplicates(nums) {
     if (nums.length === 0) return 0;
     let k = 1;
@@ -38,10 +53,3 @@ function removeDuplicates(nums) {
     }
     return k;
 }
-
-// Example usage with prompt for input
-const nums = prompt("Enter the elements of the array (sorted in non-decreasing order) separated by commas:").split(',').map(Number);
-const k = removeDuplicates(nums);
-
-console.log("Number of unique elements:", k);
-console.log("Array with unique elements:", nums.slice(0, k).join(', '));
