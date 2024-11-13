@@ -27,47 +27,42 @@ Constraints:
 nums is sorted in non-decreasing order.
 */
 
-#include<stdio.h>
+import java.util.Scanner;
 
-#include <stdio.h>
-
-// Function to remove duplicates in-place and return the number of unique elements
-int removeDuplicates(int* nums, int numsSize) {
-    if (numsSize == 0) return 0;
-    int k = 1; // k is the number of unique elements
-    for (int i = 1; i < numsSize; i++) {
-        if (nums[i] != nums[i - 1]) {
-            nums[k] = nums[i];
-            k++;
+public class RemoveDuplicates {
+    public static int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
+        int k = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i - 1]) {
+                nums[k] = nums[i];
+                k++;
+            }
         }
-    }
-    return k;
-}
-
-int main() {
-    int nums[100]; // Assumed max array size
-    int n;
-
-    // Taking input for the array size
-    printf("Enter the number of elements in the array: ");
-    scanf("%d", &n);
-
-    // Taking input for the array elements
-    printf("Enter the elements of the array (sorted in non-decreasing order): ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &nums[i]);
+        return k;
     }
 
-    // Calling the function to remove duplicates
-    int k = removeDuplicates(nums, n);
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter the number of elements in the array: ");
+        int n = scanner.nextInt();
+        
+        int[] nums = new int[n];
+        System.out.print("Enter the elements of the array (sorted in non-decreasing order): ");
+        for (int i = 0; i < n; i++) {
+            nums[i] = scanner.nextInt();
+        }
 
-    // Printing the unique elements and the number of unique elements
-    printf("Number of unique elements: %d\n", k);
-    printf("Array with unique elements: ");
-    for (int i = 0; i < k; i++) {
-        printf("%d ", nums[i]);
+        int k = removeDuplicates(nums);
+
+        System.out.println("Number of unique elements: " + k);
+        System.out.print("Array with unique elements: ");
+        for (int i = 0; i < k; i++) {
+            System.out.print(nums[i] + " ");
+        }
+        System.out.println();
+        
+        scanner.close();
     }
-    printf("\n");
-
-    return 0;
 }

@@ -1,4 +1,4 @@
-/*
+'''
 Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
 
 Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
@@ -25,49 +25,21 @@ Constraints:
 1 <= nums.length <= 3 * 104
 -100 <= nums[i] <= 100
 nums is sorted in non-decreasing order.
-*/
 
-#include<stdio.h>
+'''
+def removeDuplicates(nums):
+    if not nums:
+        return 0
+    k = 1
+    for i in range(1, len(nums)):
+        if nums[i] != nums[i - 1]:
+            nums[k] = nums[i]
+            k += 1
+    return k
 
-#include <stdio.h>
+# Example usage
+nums = list(map(int, input("Enter the elements of the array (sorted in non-decreasing order) separated by space: ").split()))
+k = removeDuplicates(nums)
 
-// Function to remove duplicates in-place and return the number of unique elements
-int removeDuplicates(int* nums, int numsSize) {
-    if (numsSize == 0) return 0;
-    int k = 1; // k is the number of unique elements
-    for (int i = 1; i < numsSize; i++) {
-        if (nums[i] != nums[i - 1]) {
-            nums[k] = nums[i];
-            k++;
-        }
-    }
-    return k;
-}
-
-int main() {
-    int nums[100]; // Assumed max array size
-    int n;
-
-    // Taking input for the array size
-    printf("Enter the number of elements in the array: ");
-    scanf("%d", &n);
-
-    // Taking input for the array elements
-    printf("Enter the elements of the array (sorted in non-decreasing order): ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &nums[i]);
-    }
-
-    // Calling the function to remove duplicates
-    int k = removeDuplicates(nums, n);
-
-    // Printing the unique elements and the number of unique elements
-    printf("Number of unique elements: %d\n", k);
-    printf("Array with unique elements: ");
-    for (int i = 0; i < k; i++) {
-        printf("%d ", nums[i]);
-    }
-    printf("\n");
-
-    return 0;
-}
+print(f"Number of unique elements: {k}")
+print(f"Array with unique elements: {' '.join(map(str, nums[:k]))}")

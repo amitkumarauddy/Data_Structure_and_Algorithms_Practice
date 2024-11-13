@@ -27,16 +27,11 @@ Constraints:
 nums is sorted in non-decreasing order.
 */
 
-#include<stdio.h>
-
-#include <stdio.h>
-
-// Function to remove duplicates in-place and return the number of unique elements
-int removeDuplicates(int* nums, int numsSize) {
-    if (numsSize == 0) return 0;
-    int k = 1; // k is the number of unique elements
-    for (int i = 1; i < numsSize; i++) {
-        if (nums[i] != nums[i - 1]) {
+function removeDuplicates(nums) {
+    if (nums.length === 0) return 0;
+    let k = 1;
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] !== nums[i - 1]) {
             nums[k] = nums[i];
             k++;
         }
@@ -44,30 +39,9 @@ int removeDuplicates(int* nums, int numsSize) {
     return k;
 }
 
-int main() {
-    int nums[100]; // Assumed max array size
-    int n;
+// Example usage with prompt for input
+const nums = prompt("Enter the elements of the array (sorted in non-decreasing order) separated by commas:").split(',').map(Number);
+const k = removeDuplicates(nums);
 
-    // Taking input for the array size
-    printf("Enter the number of elements in the array: ");
-    scanf("%d", &n);
-
-    // Taking input for the array elements
-    printf("Enter the elements of the array (sorted in non-decreasing order): ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &nums[i]);
-    }
-
-    // Calling the function to remove duplicates
-    int k = removeDuplicates(nums, n);
-
-    // Printing the unique elements and the number of unique elements
-    printf("Number of unique elements: %d\n", k);
-    printf("Array with unique elements: ");
-    for (int i = 0; i < k; i++) {
-        printf("%d ", nums[i]);
-    }
-    printf("\n");
-
-    return 0;
-}
+console.log("Number of unique elements:", k);
+console.log("Array with unique elements:", nums.slice(0, k).join(', '));

@@ -27,15 +27,13 @@ Constraints:
 nums is sorted in non-decreasing order.
 */
 
-#include<stdio.h>
+#include <iostream>
+#include <vector>
 
-#include <stdio.h>
-
-// Function to remove duplicates in-place and return the number of unique elements
-int removeDuplicates(int* nums, int numsSize) {
-    if (numsSize == 0) return 0;
-    int k = 1; // k is the number of unique elements
-    for (int i = 1; i < numsSize; i++) {
+int removeDuplicates(std::vector<int>& nums) {
+    if (nums.size() == 0) return 0;
+    int k = 1;
+    for (int i = 1; i < nums.size(); i++) {
         if (nums[i] != nums[i - 1]) {
             nums[k] = nums[i];
             k++;
@@ -45,29 +43,25 @@ int removeDuplicates(int* nums, int numsSize) {
 }
 
 int main() {
-    int nums[100]; // Assumed max array size
     int n;
+    std::cout << "Enter the number of elements in the array: ";
+    std::cin >> n;
 
-    // Taking input for the array size
-    printf("Enter the number of elements in the array: ");
-    scanf("%d", &n);
-
-    // Taking input for the array elements
-    printf("Enter the elements of the array (sorted in non-decreasing order): ");
+    std::vector<int> nums(n);
+    std::cout << "Enter the elements of the array (sorted in non-decreasing order): ";
     for (int i = 0; i < n; i++) {
-        scanf("%d", &nums[i]);
+        std::cin >> nums[i];
     }
 
-    // Calling the function to remove duplicates
-    int k = removeDuplicates(nums, n);
+    int k = removeDuplicates(nums);
 
-    // Printing the unique elements and the number of unique elements
-    printf("Number of unique elements: %d\n", k);
-    printf("Array with unique elements: ");
+    std::cout << "Number of unique elements: " << k << std::endl;
+    std::cout << "Array with unique elements: ";
     for (int i = 0; i < k; i++) {
-        printf("%d ", nums[i]);
+        std::cout << nums[i] << " ";
     }
-    printf("\n");
+    std::cout << std::endl;
 
     return 0;
 }
+
