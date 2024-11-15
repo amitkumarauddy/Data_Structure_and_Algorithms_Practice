@@ -1,62 +1,113 @@
+import java.util.Scanner;
+import java.util.Stack;
+
 class MinStack {
-    private Node head;
+    private Stack<Integer> stack;
 
-    private class Node {
-        int value;
-        int min;
-        Node next;
-
-        Node(int value, int min, Node next) {
-            this.value = value;
-            this.min = min;
-            this.next = next;
-        }
-    }
-
+    // Constructor to initialize the main stack
     public MinStack() {
-        // Initialize the stack
-        head = null;
+        stack = new Stack<>();
     }
 
+    // Push a value onto the stack
     public void push(int val) {
-        if (head == null) {
-            head = new Node(val, val, null);
-        } else {
-            head = new Node(val, Math.min(val, head.min), head);
-        }
+        stack.push(val);
+        System.out.println(val + " pushed onto the stack.");
     }
 
+    // Pop the top value from the stack
     public void pop() {
-        if (head != null) {
-            head = head.next;
+        if (!stack.isEmpty()) {
+            System.out.println(stack.pop() + " popped from the stack.");
+        } else {
+            System.out.println("Stack is empty, cannot pop.");
         }
     }
 
+    // Return the top value of the stack
     public int top() {
-        if (head != null) {
-            return head.value;
+        if (!stack.isEmpty()) {
+            return stack.peek();
+        } else {
+            System.out.println("Stack is empty.");
+            return Integer.MIN_VALUE;
         }
-        throw new IllegalStateException("Stack is empty");
     }
 
+    // Get the minimum value from the stack
     public int getMin() {
-        if (head != null) {
-            return head.min;
+        if (stack.isEmpty()) {
+            System.out.println("Stack is empty.");
+            return Integer.MIN_VALUE;
         }
-        throw new IllegalStateException("Stack is empty");
+
+        Stack<Integer> tmp = new Stack<>();
+        int mini = stack.peek();
+
+        // Find the minimum value by iterating through the stack
+        while (!stack.isEmpty()) {
+            mini = Math.min(mini, stack.peek());
+            tmp.push(stack.pop());
+        }
+
+        // Restore the original stack by pushing values back from tmp stack
+        while (!tmp.isEmpty()) {
+            stack.push(tmp.pop());
+        }
+
+        return mini;
     }
 }
 
 public class MinimumStack {
     public static void main(String[] args) {
         MinStack minStack = new MinStack();
-        
-        minStack.push(1);
-        minStack.push(2);
-        minStack.push(0);
-        System.out.println("getMin: " + minStack.getMin()); // Output: 0
-        minStack.pop();
-        System.out.println("top: " + minStack.top()); // Output: 2
-        System.out.println("getMin: " + minStack.getMin()); // Output: 1
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+
+        System.out.println("Welcome to the MinStack program!");
+        System.out.println("Commands: push <value>, pop, top, getMin, exit");
+
+        // Loop to keep the program running until the user exits
+        while (!exit) {
+            System.out.print("Enter command: ");
+            String command = scanner.next();
+
+            switch (command) {
+                case "push":
+                    int val = scanner.nextInt();
+                    minStack.push(val);
+                    break;
+
+                case "pop":
+                    minStack.pop();
+                    break;
+
+                case "top":
+                    int topValue = minStack.top();
+                    if (topValue != Integer.MIN_VALUE) {
+                        System.out.println("Top value: " + topValue);
+                    }
+                    break;
+
+                case "getMin":
+                    int minValue = minStack.getMin();
+                    if (minValue != Integer.MIN_VALUE) {
+                        System.out.println("Minimum value: " + minValue);
+                    }
+                    break;
+
+                case "exit":
+                    exit = true;
+                    System.out.println("Exiting program.");
+                    break;
+
+                default:
+                    System.out.println("Invalid command. Try again.");
+                    break;
+            }
+        }
+
+        scanner.close();
     }
 }
