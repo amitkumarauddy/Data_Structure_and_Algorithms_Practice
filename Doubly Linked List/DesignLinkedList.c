@@ -39,6 +39,13 @@ At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and del
 */
 
 
+
+/*
+
+//USING SINGLY LINKED LIST
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -178,6 +185,243 @@ int main() {
 
     while (1) {
         printf("\n--- Linked List Operations ---\n");
+        printf("1. Add at Head\n");
+        printf("2. Add at Tail\n");
+        printf("3. Add at Index\n");
+        printf("4. Get Value at Index\n");
+        printf("5. Delete at Index\n");
+        printf("6. Print Linked List\n");
+        printf("7. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value to add at head: ");
+                scanf("%d", &value);
+                myLinkedListAddAtHead(myLinkedList, value);
+                break;
+
+            case 2:
+                printf("Enter value to add at tail: ");
+                scanf("%d", &value);
+                myLinkedListAddAtTail(myLinkedList, value);
+                break;
+
+            case 3:
+                printf("Enter index and value to add: ");
+                scanf("%d %d", &index, &value);
+                myLinkedListAddAtIndex(myLinkedList, index, value);
+                break;
+
+            case 4:
+                printf("Enter index to get value: ");
+                scanf("%d", &index);
+                value = myLinkedListGet(myLinkedList, index);
+                if (value == -1) {
+                    printf("Invalid index.\n");
+                } else {
+                    printf("Value at index %d: %d\n", index, value);
+                }
+                break;
+
+            case 5:
+                printf("Enter index to delete: ");
+                scanf("%d", &index);
+                myLinkedListDeleteAtIndex(myLinkedList, index);
+                break;
+
+            case 6:
+                printf("Linked List: ");
+                myLinkedListPrint(myLinkedList);
+                break;
+
+            case 7:
+                myLinkedListFree(myLinkedList);
+                printf("Exiting...\n");
+                return 0;
+
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    }
+
+    return 0;
+}
+*/ 
+
+//USING DOUBLY LINKED LIST
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definition of a Node in the doubly linked list
+typedef struct Node {
+    int val;
+    struct Node* next; // Pointer to the next node
+    struct Node* prev; // Pointer to the previous node
+} Node;
+
+// Definition of MyLinkedList
+typedef struct {
+    Node* head; // Pointer to the head node
+    Node* tail; // Pointer to the tail node (optional for easier operations)
+    int size;   // Size of the linked list
+} MyLinkedList;
+
+// Function to initialize a new doubly linked list
+MyLinkedList* myLinkedListCreate() {
+    MyLinkedList* obj = (MyLinkedList*)malloc(sizeof(MyLinkedList));
+    obj->head = NULL;
+    obj->tail = NULL;
+    obj->size = 0;
+    return obj;
+}
+
+// Function to get the value at the specified index
+int myLinkedListGet(MyLinkedList* obj, int index) {
+    if (index < 0 || index >= obj->size) {
+        return -1; // Invalid index
+    }
+    Node* curr;
+    // Optimize by choosing direction of traversal
+    if (index < obj->size / 2) {
+        curr = obj->head;
+        for (int i = 0; i < index; ++i) {
+            curr = curr->next;
+        }
+    } else {
+        curr = obj->tail;
+        for (int i = obj->size - 1; i > index; --i) {
+            curr = curr->prev;
+        }
+    }
+    return curr->val;
+}
+
+// Function to add a node at the head of the doubly linked list
+void myLinkedListAddAtHead(MyLinkedList* obj, int val) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->val = val;
+    newNode->next = obj->head;
+    newNode->prev = NULL;
+
+    if (obj->head != NULL) {
+        obj->head->prev = newNode;
+    } else { // If the list was empty, set the tail
+        obj->tail = newNode;
+    }
+    obj->head = newNode;
+    obj->size++;
+}
+
+// Function to add a node at the tail of the doubly linked list
+void myLinkedListAddAtTail(MyLinkedList* obj, int val) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->val = val;
+    newNode->next = NULL;
+    newNode->prev = obj->tail;
+
+    if (obj->tail != NULL) {
+        obj->tail->next = newNode;
+    } else { // If the list was empty, set the head
+        obj->head = newNode;
+    }
+    obj->tail = newNode;
+    obj->size++;
+}
+
+// Function to add a node at a specific index
+void myLinkedListAddAtIndex(MyLinkedList* obj, int index, int val) {
+    if (index < 0 || index > obj->size) {
+        printf("Invalid index.\n");
+        return;
+    }
+    if (index == 0) {
+        myLinkedListAddAtHead(obj, val);
+    } else if (index == obj->size) {
+        myLinkedListAddAtTail(obj, val);
+    } else {
+        Node* curr = obj->head;
+        for (int i = 0; i < index - 1; ++i) {
+            curr = curr->next;
+        }
+        Node* newNode = (Node*)malloc(sizeof(Node));
+        newNode->val = val;
+        newNode->next = curr->next;
+        newNode->prev = curr;
+
+        curr->next->prev = newNode;
+        curr->next = newNode;
+        obj->size++;
+    }
+}
+
+// Function to delete a node at a specific index
+void myLinkedListDeleteAtIndex(MyLinkedList* obj, int index) {
+    if (index < 0 || index >= obj->size) {
+        printf("Invalid index.\n");
+        return;
+    }
+    Node* toDelete;
+
+    if (index == 0) { // Deleting the head
+        toDelete = obj->head;
+        obj->head = obj->head->next;
+        if (obj->head != NULL) {
+            obj->head->prev = NULL;
+        } else {
+            obj->tail = NULL; // The list is now empty
+        }
+    } else if (index == obj->size - 1) { // Deleting the tail
+        toDelete = obj->tail;
+        obj->tail = obj->tail->prev;
+        obj->tail->next = NULL;
+    } else {
+        toDelete = obj->head;
+        for (int i = 0; i < index; ++i) {
+            toDelete = toDelete->next;
+        }
+        toDelete->prev->next = toDelete->next;
+        toDelete->next->prev = toDelete->prev;
+    }
+
+    free(toDelete);
+    obj->size--;
+}
+
+// Function to free the memory used by the doubly linked list
+void myLinkedListFree(MyLinkedList* obj) {
+    Node* curr = obj->head;
+    while (curr != NULL) {
+        Node* temp = curr;
+        curr = curr->next;
+        free(temp);
+    }
+    free(obj);
+}
+
+// Function to print the doubly linked list
+void myLinkedListPrint(MyLinkedList* obj) {
+    if (obj->head == NULL) {
+        printf("The list is empty.\n");
+        return;
+    }
+    Node* curr = obj->head;
+    while (curr != NULL) {
+        printf("%d <-> ", curr->val);
+        curr = curr->next;
+    }
+    printf("NULL\n");
+}
+
+// Main function
+int main() {
+    MyLinkedList* myLinkedList = myLinkedListCreate();
+    int choice, value, index;
+
+    while (1) {
+        printf("\n--- Doubly Linked List Operations ---\n");
         printf("1. Add at Head\n");
         printf("2. Add at Tail\n");
         printf("3. Add at Index\n");
