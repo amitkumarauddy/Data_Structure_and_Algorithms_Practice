@@ -5,7 +5,7 @@ char* hashSet[] = {NULL, "Jones", NULL, "Lisa", NULL, "Bob", NULL, "Siri", "Pete
 
 int hashFunction(const char* value){
     int sum = 0;
-    for(int i = 0; i < strlen(value); i++){
+    for(size_t i = 0; i < strlen(value); i++){
         sum = sum + (int)value[i];
     }
     return sum % 10;
