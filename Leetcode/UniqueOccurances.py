@@ -19,4 +19,4 @@ def uniqueOccurrences(arr):
 
     return True
 
-print(uniqueOccurrences([1,2,2,1,1,3]))
+print(uniqueOccurrences([1,2,2,1,1,4]))
