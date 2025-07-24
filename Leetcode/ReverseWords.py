@@ -5,4 +5,4 @@ def reverseWords(s: str) -> str:
 
     return ' '.join(reversed_words)
 
-print(reverseWords("My name is Delta"))
+print(reverseWords("My name is Selta"))
